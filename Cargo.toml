@@ -1,0 +1,45 @@
+[package]
+name = "cosmic-applet-shortcut-cheatsheet"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.93"
+license = "MPL-2.0"
+description = "A click-to-toggle shortcut cheatsheet for the COSMIC panel"
+repository = "https://github.com/JoeyTong/cosmic-applet-shortcut-cheatsheet"
+
+[dependencies]
+cosmic-settings-config = { git = "https://github.com/pop-os/cosmic-settings-daemon", rev = "8844464b01d38bee68ed7da6083bf6dbaad71941" }
+libcosmic = { git = "https://github.com/pop-os/libcosmic//", rev = "430f3d48a97d8779f9c1985473912e594ccca1ae", default-features = false, features = ["applet", "dbus-config", "tokio", "wayland"] }
+tokio = { version = "1", features = ["time", "sync"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+xkbcommon = "0.9"
+
+[dev-dependencies]
+ron = "0.12"
+tempfile = "3"
+
+# Pin the native COSMIC 1.11 dependency set instead of following moving HEADs.
+# The distinct URL spelling lets Cargo patch transitive Git dependencies.
+[patch."https://github.com/pop-os/libcosmic"]
+cosmic-config = { git = "https://github.com/pop-os/libcosmic//", rev = "430f3d48a97d8779f9c1985473912e594ccca1ae" }
+
+[patch."https://github.com/smithay/client-toolkit.git"]
+sctk = { package = "smithay-client-toolkit", version = "0.20.0" }
+
+[patch."https://github.com/pop-os/dbus-settings-bindings"]
+cosmic-settings-daemon = { git = "https://github.com/pop-os/dbus-settings-bindings//", rev = "eed01dd3609e90e3c8cd043656734c500956c793" }
+
+[patch."https://github.com/pop-os/cosmic-panel"]
+cosmic-panel-config = { git = "https://github.com/pop-os/cosmic-panel//", rev = "3ce6ce1cec97669f91e809962d9446aaefe8a06e" }
+
+[patch."https://github.com/pop-os/freedesktop-icons"]
+cosmic-freedesktop-icons = { git = "https://github.com/pop-os/freedesktop-icons//", rev = "ab4c57b8e416c6af9297cb04d101889896fd9a92" }
+
+[profile.dev]
+debug = 0
+
+[profile.release]
+opt-level = 2
+lto = "thin"
+strip = true

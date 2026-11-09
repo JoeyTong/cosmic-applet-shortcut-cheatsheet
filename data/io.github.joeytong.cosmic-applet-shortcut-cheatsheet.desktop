@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Shortcut Cheatsheet
+Comment=Quickly check your COSMIC keyboard shortcuts
+Type=Application
+Exec=cosmic-applet-shortcut-cheatsheet
+Icon=shortcut-cheatsheet-symbolic
+Terminal=false
+Categories=COSMIC;Utility;
+Keywords=COSMIC;Applet;Keyboard;Shortcuts;Cheatsheet;
+NoDisplay=true
+StartupNotify=false
+X-CosmicApplet=true
